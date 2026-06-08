@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abu-Rayyan Academy</title>
+<link rel="icon" type="image/png" href="https://scontent-mba2-1.xx.fbcdn.net/v/t39.30808-6/373670436_810158554139509_8268529416587154509_n.jpg?stp=c0.6.657.657a_dst-jpg_s206x206_tt6&_nc_cat=103&ccb=1-7&_nc_sid=7a06f5&_nc_ohc=cBPkyW_P-hAQ7kNvwGmz8fh&_nc_oc=AdpWno5D2-DL7ARwRvaOPPO3Kj-vMlToOYc2s0SxlvMAm8pkE5HBdj2rns5Ok21eCFM&_nc_zt=23&_nc_ht=scontent-mba2-1.xx&_nc_gid=qjcR30C7HFR2rrJ179Ht3w&_nc_ss=7b289&oh=00_Af8rXG4w4exo8TLAWjnXgosAt9Z4efWbZnrZ5OSbzwHgeg&oe=6A287F9A">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, sans-serif;
+}
+
+body{
+    background:#f4f7fa;
+    color:#333;
+}
+
+header{
+    background:#0d47a1;
+    color:white;
+    padding:20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header .container{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:bold;
+}
+
+nav ul{
+    list-style:none;
+    display:flex;
+}
+
+nav ul li{
+    margin-left:20px;
+}
+
+nav ul li a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.hero{
+    background:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+    url('https://images.unsplash.com/photo-1509062522246-3755977927d7');
+    background-size:cover;
+    background-position:center;
+    height:80vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:white;
+}
+
+.hero-content h1{
+    font-size:50px;
+    margin-bottom:15px;
+}
+
+.hero-content p{
+    font-size:20px;
+    margin-bottom:20px;
+}
+
+.btn{
+    display:inline-block;
+    background:#ff9800;
+    color:white;
+    padding:12px 25px;
+    text-decoration:none;
+    border-radius:5px;
+}
+
+.section{
+    padding:60px 10%;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:40px;
+    color:#0d47a1;
+}
+
+.categories{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:white;
+    border-radius:10px;
+    padding:25px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+}
+
+.card h3{
+    color:#0d47a1;
+    margin-bottom:15px;
+}
+
+.card img{
+    width:100%;
+    height:200px;
+    object-fit:cover;
+    border-radius:8px;
+    margin-bottom:15px;
+}
+
+.about{
+    background:white;
+}
+
+footer{
+    background:#0d47a1;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+.contact-info{
+    text-align:center;
+    line-height:2;
+}
+
+@media(max-width:768px){
+    nav ul{
+        flex-direction:column;
+        gap:10px;
+    }
+
+    .hero-content h1{
+        font-size:35px;
+    }
+}
+
+.hero-carousel{
+    position:relative;
+    width:100%;
+    height:85vh;
+    overflow:hidden;
+}
+
+.slide{
+    position:absolute;
+    width:100%;
+    height:100%;
+    opacity:0;
+    transition:opacity 1s ease-in-out;
+}
+
+.slide.active{
+    opacity:1;
+}
+
+.slide img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.slide::after{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.5);
+}
+
+.caption{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    text-align:center;
+    color:white;
+    z-index:2;
+    width:80%;
+}
+
+.caption h1{
+    font-size:3.5rem;
+    margin-bottom:15px;
+}
+
+.caption p{
+    font-size:1.3rem;
+}
+
+.prev,
+.next{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    background:rgba(255,255,255,0.3);
+    border:none;
+    color:white;
+    font-size:30px;
+    padding:15px;
+    cursor:pointer;
+    z-index:3;
+}
+
+.prev{
+    left:15px;
+}
+
+.next{
+    right:15px;
+}
+
+.prev:hover,
+.next:hover{
+    background:rgba(255,255,255,0.6);
+}
+
+.dots{
+    position:absolute;
+    bottom:20px;
+    width:100%;
+    text-align:center;
+    z-index:3;
+}
+
+.dot{
+    display:inline-block;
+    width:12px;
+    height:12px;
+    margin:0 5px;
+    border-radius:50%;
+    background:white;
+    opacity:0.5;
+    cursor:pointer;
+}
+
+.active-dot{
+    opacity:1;
+    background:#ff9800;
+}
+
+@media(max-width:768px){
+    .caption h1{
+        font-size:2rem;
+    }
+
+    .caption p{
+        font-size:1rem;
+    }
+}
+
+.stats{
+    background:#0d47a1;
+    color:white;
+}
+
+.stats-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+    gap:20px;
+    text-align:center;
+    margin-top:30px;
+}
+
+.stat-box{
+    background:rgba(255,255,255,0.1);
+    padding:30px;
+    border-radius:10px;
+    transition:0.3s;
+}
+
+.stat-box:hover{
+    transform:scale(1.05);
+    background:rgba(255,255,255,0.2);
+}
+
+.stat-box h3{
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+.top-bar{
+    background:#08306b;
+    color:white;
+    text-align:center;
+    padding:8px;
+    font-size:14px;
+}
+
+.facebook-btn{
+    display:inline-block;
+    background:#1877f2;
+    color:white;
+    padding:10px 20px;
+    text-decoration:none;
+    border-radius:5px;
+    margin:10px 0;
+}
+
+.facebook-btn:hover{
+    background:#165ec4;
+}
+</style>
+</head>
+<body>
+<div class="top-bar">
+    📍 Mombasa, Kenya |
+    ☎ +254 700 000 000 |
+    ✉ info@aburayyanacademy.com
+</div>
+
+<header>
+    <div class="container">
+        <div class="logo"><img src="https://scontent-mba2-1.xx.fbcdn.net/v/t39.30808-6/373670436_810158554139509_8268529416587154509_n.jpg?stp=c0.6.657.657a_dst-jpg_s206x206_tt6&_nc_cat=103&ccb=1-7&_nc_sid=7a06f5&_nc_ohc=cBPkyW_P-hAQ7kNvwGmz8fh&_nc_oc=AdpWno5D2-DL7ARwRvaOPPO3Kj-vMlToOYc2s0SxlvMAm8pkE5HBdj2rns5Ok21eCFM&_nc_zt=23&_nc_ht=scontent-mba2-1.xx&_nc_gid=qjcR30C7HFR2rrJ179Ht3w&_nc_ss=7b289&oh=00_Af8rXG4w4exo8TLAWjnXgosAt9Z4efWbZnrZ5OSbzwHgeg&oe=6A287F9A" alt="School logo" width="50" height="50">   Abu-Rayyan Academy</div>
+
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#categories">Programs</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#teachers">Teachers</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section class="hero-carousel" id="home">
+    <div class="slide active">
+        <img src="https://images.unsplash.com/photo-1427504494785-cdecddb76e50?w=1200&h=800&fit=crop" alt="School Building">
+        <div class="caption">
+            <h1>Welcome to Abu-Rayyan Academy</h1>
+            <p>Nurturing Knowledge, Character & Excellence</p>
+        </div>
+    </div>
+
+    <div class="slide">
+        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1200&h=800&fit=crop" alt="Students Learning">
+        <div class="caption">
+            <h1>Quality Education</h1>
+            <p>Building Future Leaders Through Knowledge</p>
+        </div>
+    </div>
+
+    <div class="slide">
+        <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=1200&h=800&fit=crop" alt="School Activities">
+        <div class="caption">
+            <h1>Holistic Development</h1>
+            <p>Academic, Moral and Spiritual Growth</p>
+        </div>
+    </div>
+
+    <button class="prev">&#10094;</button>
+    <button class="next">&#10095;</button>
+
+    <div class="dots">
+        <span class="dot active-dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+    </div>
+</section>
+
+<section class="section stats" id="statistics">
+    <h2 class="section-title">Our School Statistics</h2>
+
+    <div class="stats-container">
+        <div class="stat-box">
+            <h3>300+</h3>
+            <p>Students Enrolled</p>
+        </div>
+
+        <div class="stat-box">
+            <h3>18+</h3>
+            <p>Qualified Teachers</p>
+        </div>
+
+        <div class="stat-box">
+            <h3>95%</h3>
+            <p>Pass Rate</p>
+        </div>
+
+        <div class="stat-box">
+            <h3>8+</h3>
+            <p>Years of Excellence</p>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="categories">
+    <h2 class="section-title">Our School Categories</h2>
+
+    <div class="categories">
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1516062423479-7f3aca15de61?w=400&h=300&fit=crop" alt="Pre-Primary School">
+            <h3>Pre-Primary School</h3>
+            <p>Early childhood learning through playing, creativity, and foundational skills.</p>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1427504494785-cdecddb76e50?w=400&h=300&fit=crop" alt="Primary School">
+            <h3>Primary School</h3>
+            <p>Strong foundation in literacy, numeracy, and basic sciences.</p>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400&h=300&fit=crop" alt="Junior School">
+            <h3>Junior School</h3>
+            <p>Developing critical thinking, leadership, and academic growth.</p>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=400&h=300&fit=crop" alt="Senior School">
+            <h3>Senior School</h3>
+            <p>University/College preparation, career guidance, and advanced academic learning are key components of senior school, helping students build strong subject knowledge, explore future career paths, and gain the skills needed for success in higher education and beyond.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section about" id="about">
+    <h2 class="section-title">About Abu-Rayyan Academy</h2>
+
+    <p style="text-align:center; max-width:900px; margin:auto; line-height:1.8;">
+        Abu-Rayyan Academy is committed to providing quality education
+        that empowers learners academically, socially, morally, and spiritually.
+        Our dedicated teachers create a supportive learning environment where
+        every student can discover their potential and achieve excellence.
+    </p>
+</section>
+
+<section class="section" id="teachers">
+    <h2 class="section-title">Our Teachers</h2>
+
+    <div style="max-width:500px; margin:auto; text-align:center;">
+        <label for="teacherList" style="font-size:18px; font-weight:bold;">
+            Select a Teacher:
+        </label>
+
+        <br><br>
+
+        <select id="teacherList" style="
+            width:100%;
+            padding:12px;
+            border-radius:5px;
+            border:1px solid #ccc;
+            font-size:16px;
+        ">
+            <option value="">-- Choose a Teacher --</option>
+            <option>Mr.Alfred</option>
+            <option>Mr.Armstrong</option>
+            <option>Ms.Sabai</option>
+            <option>Ms.Zamzam</option>
+            <option>Mr.Wekesa</option>
+            <option>Mr.Samson</option>
+            <option>Mr.Ali</option>
+            <option>Mr.Amos</option>
+        </select>
+
+        <div id="teacherDisplay" style="
+            margin-top:20px;
+            padding:15px;
+            background:#fff;
+            border-radius:8px;
+            box-shadow:0 2px 8px rgba(0,0,0,0.1);
+            display:none;
+        ">
+        </div>
+    </div>
+</section>
+
+<section class="section" id="location">
+    <h2 class="section-title">Our Location</h2>
+
+    <div style="max-width:900px; margin:auto;">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3979.8908141502648!2d39.6594757!3d-4.042697499999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x184012b6536946a3%3A0xf121aa4ab5a0a1cc!2sAbu-Rayyan%20Academy!5e0!3m2!1sen!2ske!4v1780651267192!5m2!1sen!2ske" width="1000" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+</section>
+
+<section class="section" id="contact">
+    <h2 class="section-title">Contact Us</h2>
+
+    <div class="contact-info">
+        <p><strong>Abu-Rayyan Academy</strong></p>
+        <p>Email: aburayanacademy2017@gmail.com</p>
+        <p>Phone: +254 722 299287</p>
+        <a href="https://www.facebook.com/aburayyanacademy" target="_blank" class="facebook-btn">
+            Facebook
+        </a>
+        <p>Location: Sabasaba, Mombasa, Kenya</p>
+    </div>
+</section>
+
+<script>
+const teacherList = document.getElementById('teacherList');
+const teacherDisplay = document.getElementById('teacherDisplay');
+
+const teachers = {
+    "Mr.Alfred": "Mathematics",
+    "Mr.Armstrong": "English",
+    "Ms.Sabai": "Science",
+    "Ms.Zamzam": "Social Studies",
+    "Mr.Wekesa": "Kiswahili",
+    "Mr.Samson": "Computer Studies",
+    "Mr.Ali": "Islamic Religious Education (IRE)",
+    "Mr.Amos": "Business Studies"
+};
+
+teacherList.addEventListener('change', function() {
+    const teacher = this.value;
+
+    if (teacher !== "") {
+        teacherDisplay.style.display = "block";
+        teacherDisplay.innerHTML = `
+            <h3>${teacher}</h3>
+            <p><strong>Subject:</strong> ${teachers[teacher]}</p>
+        `;
+    } else {
+        teacherDisplay.style.display = "none";
+    }
+});
+</script>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
+const nextBtn = document.querySelector('.next');
+const prevBtn = document.querySelector('.prev');
+
+let current = 0;
+
+function showSlide(index){
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active-dot'));
+
+    slides[index].classList.add('active');
+    dots[index].classList.add('active-dot');
+}
+
+function nextSlide(){
+    current = (current + 1) % slides.length;
+    showSlide(current);
+}
+
+function prevSlide(){
+    current = (current - 1 + slides.length) % slides.length;
+    showSlide(current);
+}
+
+nextBtn.addEventListener('click', nextSlide);
+prevBtn.addEventListener('click', prevSlide);
+
+dots.forEach((dot,index)=>{
+    dot.addEventListener('click',()=>{
+        current = index;
+        showSlide(current);
+    });
+});
+
+setInterval(nextSlide, 5000);
+</script>
+
+<footer>
+    <p>&copy; 2026 Abu-Rayyan Academy. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
